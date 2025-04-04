@@ -71,7 +71,8 @@ jobs:
             org.opencontainers.image.title=PMD Docker
             org.opencontainers.image.url=https://github.com/pmd/docker
             org.opencontainers.image.version=${{ inputs.version }}
-            org.opencontainers.image.created=${{ inputs.created }}
+            org.opencontainers.image.created=${{ steps.meta.outputs.created }}
+            org.opencontainers.image.source=https://github.com/pmd/docker
             org.opencontainers.image.licenses=BSD-3-Clause
 
       - name: Generate artifact attestation

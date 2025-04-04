@@ -1,4 +1,5 @@
 name: Publish Docker image
+run-name: Publish ${{ inputs.version }}
 
 on:
   workflow_dispatch:
@@ -14,7 +15,7 @@ on:
 
 jobs:
   push_to_registry:
-    name: Push Docker image to Docker Hub
+    name: Push Docker image to Docker Hub and GitHub
     runs-on: ubuntu-latest
     permissions:
       packages: write
@@ -46,6 +47,7 @@ jobs:
           TAGS: ${{ inputs.tags }}
         shell: bash
         run: |
+          # split by comma
           IFS="," read -ra TAGSARRAY <<< "$TAGS"
           all_tags=""
           for tag in "${TAGSARRAY[@]}"; do

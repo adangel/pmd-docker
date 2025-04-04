@@ -24,13 +24,17 @@ RUN set -eux; \
 
 RUN set -eux; \
     wget -O /pmd-dist-${PMD_VERSION}-bin.zip https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-dist-${PMD_VERSION}-bin.zip; \
-    wget -O /pmd-dist-${PMD_VERSION}-bin.zip.asc https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-dist-${PMD_VERSION}-bin.zip.asc; \
-    export GNUPGHOME="$(mktemp -d)"; \
-    # gpg: key A0B5CA1A4E086838: public key "PMD Release Signing Key <releases@pmd-code.org>" imported
-    # See https://docs.pmd-code.org/latest/pmd_userdocs_signed_releases.html
-    gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 1E046C19ED2873D8C08AF7B8A0632691B78E3422; \
-    gpg --batch --verify /pmd-dist-${PMD_VERSION}-bin.zip.asc /pmd-dist-${PMD_VERSION}-bin.zip; \
-    rm -rf "${GNUPGHOME}" /pmd-dist-${PMD_VERSION}-bin.zip.asc; \
+    wget -O /pmd-dist-${PMD_VERSION}-bin.zip.asc https://github.com/pmd/pmd/releases/download/pmd_releases%2F${PMD_VERSION}/pmd-dist-${PMD_VERSION}-bin.zip.asc || true; \
+    if [ -e /pmd-dist-${PMD_VERSION}-bin.zip.asc ]; then \
+        export GNUPGHOME="$(mktemp -d)"; \
+        # gpg: key A0B5CA1A4E086838: public key "PMD Release Signing Key <releases@pmd-code.org>" imported
+        # See https://docs.pmd-code.org/latest/pmd_userdocs_signed_releases.html
+        gpg --batch --keyserver keyserver.ubuntu.com --recv-keys 1E046C19ED2873D8C08AF7B8A0632691B78E3422; \
+        gpg --batch --verify /pmd-dist-${PMD_VERSION}-bin.zip.asc /pmd-dist-${PMD_VERSION}-bin.zip; \
+        rm -rf "${GNUPGHOME}" /pmd-dist-${PMD_VERSION}-bin.zip.asc; \
+    else \
+        echo "WARNING: can't verify binary with gpg"; \
+    fi; \
     unzip -d / /pmd-dist-${PMD_VERSION}-bin.zip; \
     rm /pmd-dist-${PMD_VERSION}-bin.zip; \
     mv /pmd-bin-${PMD_VERSION} ${PMD_HOME};

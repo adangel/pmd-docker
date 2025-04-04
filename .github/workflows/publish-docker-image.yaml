@@ -9,7 +9,7 @@ on:
         required: true
         type: string
       tags:
-        description: Comma separated list of tags to be pushed, e.g. "latest,x.y.z,x.y,x"
+        description: Comma separated list of tags to be pushed, e.g. "x,x.y,x.y.z,latest"
         required: true
         type: string
 

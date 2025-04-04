@@ -75,9 +75,16 @@ jobs:
             org.opencontainers.image.source=https://github.com/pmd/docker
             org.opencontainers.image.licenses=BSD-3-Clause
 
-      - name: Generate artifact attestation
+      - name: Generate artifact attestation (docker)
         uses: actions/attest-build-provenance@v2
         with:
           subject-name: index.docker.io/pmdcode/pmd
           subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
+          push-to-registry: false
+
+      - name: Generate artifact attestation (ghcr)
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/pmd/pmd
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: false

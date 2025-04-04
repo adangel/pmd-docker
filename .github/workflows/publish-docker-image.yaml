@@ -49,7 +49,7 @@ jobs:
           IFS="," read -ra TAGSARRAY <<< "$TAGS"
           all_tags=""
           for tag in "${TAGSARRAY[@]}"; do
-            all_tags="${all_tags}docker.io/pmdcode/pmd:$tag,ghcr.io/pmd/docker:$tag,"
+            all_tags="${all_tags}docker.io/pmdcode/pmd:$tag,ghcr.io/pmd/pmd:$tag,"
           done
           # remove trailing comma
           all_tags="${all_tags%,}"

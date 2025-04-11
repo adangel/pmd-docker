@@ -1,10 +1,16 @@
 # PMD Docker
 
+[![Docker Image Version](https://img.shields.io/docker/v/pmdcode/pmd?sort=semver&label=Docker)](https://hub.docker.com/r/pmdcode/pmd)
+[![Docker Pulls](https://img.shields.io/docker/pulls/pmdcode/pmd)](https://hub.docker.com/r/pmdcode/pmd)
+
 Provides [PMD](https://pmd.github.io) packaged in a Docker image ready to use. It uses the alpine linux
 flavor of [Eclipse Temurin](https://hub.docker.com/_/eclipse-temurin) as the basis.
 
 * **Maintained by:** [PMD](https://github.com/pmd/docker)
 * **Dockerfile:** https://github.com/pmd/docker/blob/main/Dockerfile
+* **Available at these registries:**
+  * https://hub.docker.com/r/pmdcode/pmd (`docker pull pmdcode/pmd`)
+  * https://github.com/pmd/docker/pkgs/container/pmd (`docker pull ghcr.io/pmd/pmd`)
 
 ## Quickstart
 

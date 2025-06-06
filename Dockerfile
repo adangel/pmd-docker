@@ -9,10 +9,8 @@ ARG JAVA_VERSION=21
 # https://hub.docker.com/_/eclipse-temurin
 FROM eclipse-temurin:${JAVA_VERSION}-alpine
 
-# Workaround for https://github.com/pmd/pmd/issues/5705
-# PMD_HOME -> DOCKER_PMD_HOME
-ENV DOCKER_PMD_HOME=/opt/pmd
-ENV PATH=${DOCKER_PMD_HOME}/bin:${PATH}
+ENV PMD_HOME=/opt/pmd
+ENV PATH=${PMD_HOME}/bin:${PATH}
 
 # bring global args into scope
 ARG PMD_VERSION
@@ -39,7 +37,7 @@ RUN set -eux; \
     fi; \
     unzip -d / /pmd-dist-${PMD_VERSION}-bin.zip; \
     rm /pmd-dist-${PMD_VERSION}-bin.zip; \
-    mv /pmd-bin-${PMD_VERSION} ${DOCKER_PMD_HOME};
+    mv /pmd-bin-${PMD_VERSION} ${PMD_HOME};
 
 
 RUN mkdir /src \
